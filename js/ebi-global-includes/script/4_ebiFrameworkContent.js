@@ -273,12 +273,14 @@ function ebiFrameworkInsertEMBLdropdown() {
     var emblSelector = document.querySelectorAll(".embl-selector")[0].addEventListener("click", function( event ) {
       ebiToggleClass(emblBar,'active');
       ebiToggleClass(emblBarButton,'active');
+      event.preventDefault();
       window.scrollTo(0, 0);
     }, false);
 
     var emblSelectorClose = document.querySelectorAll(".embl-bar .close-button")[0].addEventListener("click", function( event ) {
       ebiToggleClass(emblBar,'active');
       ebiToggleClass(emblBarButton,'active');
+      event.preventDefault();
       window.scrollTo(0, 0);
     }, false);
 
@@ -433,13 +435,14 @@ function ebiFrameworkIncludeAnnouncements() {
 
   function loadRemoteAnnouncements(file) {
     if (window.XMLHttpRequest) {
-      xmlhttp=new XMLHttpRequest();
+      var xmlhttp=new XMLHttpRequest();
     }
     xmlhttp.open("GET", file, true);
     xmlhttp.onload = function (e) {
       if (xmlhttp.readyState === 4) {
         if (xmlhttp.status === 200) {
           eval(xmlhttp.responseText);
+          var m = m || ''; // make sure the message isn't null
           detectAnnouncements(m);
         } else {
           console.error(xmlhttp.statusText);
